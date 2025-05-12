@@ -35,7 +35,7 @@ public class User {
         return this.age;
     }
 
-    public boolean getStudent() {
+    public boolean isStudent() {
         return this.student;
     }
 
