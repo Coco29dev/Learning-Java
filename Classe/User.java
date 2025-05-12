@@ -56,7 +56,7 @@ public class User {
         this.student = student;
     }
 
-    // Méthode lié à la classe User
+    // Méthode toString pour retourner les informations d'un User
     public String toString() {
         return "Prénom: " + this.firstName + " Nom de famille: " + this.lastName + " Age: " + this.age + " Etudiant: "
                 + this.student;
@@ -66,7 +66,7 @@ public class User {
 
         User user1 = new User("Jean", "Doe", 14, true);
 
-        user1.toString();
+        System.out.println(user1.toString());
 
     }
 }
