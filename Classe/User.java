@@ -16,6 +16,7 @@ public class User {
 
     // Initialisation du constructeur de la classe User
     public User(final String firstName, final String lastName, final int age, final boolean student) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -58,15 +59,10 @@ public class User {
 
     // Méthode toString pour retourner les informations d'un User
     public String toString() {
-        return "Prénom: " + this.firstName + " Nom de famille: " + this.lastName + " Age: " + this.age + " Etudiant: "
-                + this.student;
+        return "Prénom: " + this.firstName + "\n" +
+                " Nom de famille: " + this.lastName + "\n" +
+                " Age: " + this.age + "\n" +
+                " Etudiant: " + (this.student ? "Oui" : "Non");
     }
 
-    public static void main(String[] args) {
-
-        User user1 = new User("Jean", "Doe", 14, true);
-
-        System.out.println(user1.toString());
-
-    }
 }
