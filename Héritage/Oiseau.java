@@ -1,3 +1,11 @@
+/*
+ * Création d'une classe enfant Oiseau qui hérite de la classe Animal
+ * Différents attributs
+ * Constructeur de la classe Oiseau et héritage des attributs de la classe Animal avec super()
+ * Getter / Setter
+ * Méthode toString avec l'héritage de la méthode toString de la classe Animal
+ */
+
 public class Oiseau extends Animal {
 
     // Attributs
@@ -5,7 +13,8 @@ public class Oiseau extends Animal {
     private int taille;
     private int poids;
 
-    // Constructeur
+    // Constructeur de la classe enfant avec héritage des attributs de la classe
+    // parente
     public Oiseau(final String ordre, final String habitat, final boolean menacé, final String name, final int taille,
             final int poids) {
         super(ordre, habitat, menacé);
