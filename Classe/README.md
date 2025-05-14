@@ -2,26 +2,26 @@
 
 ## Introduction aux classes
 
-En Java, une classe est un modèle (blueprint) qui définit les caractéristiques et comportements d'un type d'objet. C'est l'élément fondamental de la programmation orientée objet (POO).
+En Java, une classe est un modèle (blueprint) qui définit la structure et le comportement d'un type d'objet. Les classes sont le fondement de la programmation orientée objet (POO) en Java.
 
-Une classe en Java peut être considérée comme un plan architectural qui définit :
-- Des attributs (variables d'instance) qui représentent l'état de l'objet
-- Des méthodes (fonctions) qui représentent le comportement de l'objet
+Une classe encapsule :
+- Des données (attributs/variables d'instance)
+- Des comportements (méthodes)
 - Des constructeurs pour initialiser les objets
-- Des blocs d'initialisation
-- Des classes et interfaces imbriquées
 
-Conceptuellement, si nous prenons l'exemple d'une voiture :
-- La **classe** serait le plan de conception général d'une voiture
-- Les **attributs** seraient les caractéristiques comme la couleur, la marque, le modèle
-- Les **méthodes** seraient les actions qu'une voiture peut effectuer comme démarrer, accélérer, freiner
-- Un **objet** serait une voiture spécifique créée selon ce plan
+Dans notre exemple, la classe `User` représente un utilisateur avec des caractéristiques comme son prénom, son nom, son âge, et son statut d'étudiant. Elle fournit également des méthodes pour accéder et modifier ces informations.
 
 ```java
-// Exemple simple d'une classe Voiture
-public class Voiture {
-    // Des attributs et méthodes seront définis ici
+public class User {
+    // Contenu de la classe...
 }
+```
+
+Lorsque nous créons une classe, nous créons essentiellement un nouveau type de données. Nous pouvons ensuite créer des instances (objets) de cette classe, chacune avec ses propres valeurs pour les attributs définis dans la classe.
+
+```java
+// Création d'un objet de type User
+User user1 = new User("Jean", "Dupont", 25, false);
 ```
 
 ## Déclaration d'une classe
@@ -31,445 +31,332 @@ La syntaxe de base pour déclarer une classe en Java est la suivante :
 ```java
 [modificateurs] class NomDeLaClasse [extends ClasseParent] [implements Interface1, Interface2, ...] {
     // Corps de la classe
-    // Attributs, méthodes, constructeurs, etc.
 }
 ```
 
-Où :
-- `[modificateurs]` : peut être `public`, `protected`, `private`, `abstract`, `final`, etc.
-- `NomDeLaClasse` : doit commencer par une majuscule (convention)
-- `[extends ClasseParent]` : facultatif, pour l'héritage
-- `[implements Interface1, Interface2, ...]` : facultatif, pour implémenter des interfaces
-
-Exemples de déclarations de classes :
+Dans notre exemple, la classe `User` est déclarée comme suit :
 
 ```java
-// Classe publique simple
-public class Utilisateur {
-    // Corps de la classe
-}
-
-// Classe finale (ne peut pas être étendue)
-public final class Configuration {
-    // Corps de la classe
-}
-
-// Classe abstraite (ne peut pas être instanciée directement)
-public abstract class Forme {
-    // Corps de la classe
-}
-
-// Classe avec héritage et implémentation d'interface
-public class CompteCourant extends CompteBancaire implements Comparable<CompteCourant> {
-    // Corps de la classe
+/*
+ * Création d'une classe User avec :
+ * Différents attributs 
+ * Un constructeur 
+ * Getter/Setter
+ * Méthode
+ */
+public class User {
+    // Corps de la classe...
 }
 ```
 
-Un fichier Java peut contenir plusieurs classes, mais une seule classe publique qui doit avoir le même nom que le fichier.
+Éléments à noter :
+- Le modificateur `public` indique que la classe est accessible depuis n'importe où dans le programme.
+- Le nom de la classe (`User`) suit la convention Java : il commence par une majuscule et utilise le style PascalCase.
+- Les commentaires au-dessus de la déclaration documentent le but et la structure de la classe.
+
+D'autres modificateurs possibles pour les classes incluent :
+- `abstract` : La classe ne peut pas être instanciée directement.
+- `final` : La classe ne peut pas être étendue (héritée).
+- `static` : Uniquement pour les classes internes.
 
 ## Attributs (variables d'instance)
 
-Les attributs sont des variables déclarées à l'intérieur de la classe mais en dehors des méthodes. Ils définissent l'état ou les propriétés des objets créés à partir de la classe.
+Les attributs sont des variables qui appartiennent à la classe et représentent l'état des objets créés à partir de cette classe. Dans notre classe `User`, nous avons quatre attributs :
 
 ```java
-public class Personne {
-    // Attributs
-    private String nom;
-    private String prenom;
-    private int age;
-    private double taille;  // en mètres
-    private boolean estMarie;
-    
-    // Attribut statique (partagé par tous les objets de la classe)
-    private static int nombrePersonnes = 0;
-    
-    // Constante de classe
-    public static final String ESPECE = "Humain";
-}
+// Initialisation des attributs de la classe User
+private String firstName;
+private String lastName;
+private int age;
+private boolean student;
 ```
 
-### Types de modificateurs d'accès pour les attributs
+Analyse de ces attributs :
+- Tous les attributs sont déclarés avec le modificateur `private`, ce qui signifie qu'ils ne sont accessibles que depuis l'intérieur de la classe `User`. C'est un principe fondamental de l'encapsulation.
+- Les types de données utilisés sont variés : `String` pour les chaînes de caractères, `int` pour un nombre entier, et `boolean` pour une valeur vrai/faux.
+- La convention de nommage utilisée est le camelCase (première lettre en minuscule, puis majuscule pour chaque nouveau mot).
 
-1. `public` : accessible depuis n'importe où
-2. `protected` : accessible dans la classe, ses sous-classes et le même package
-3. `private` : accessible uniquement dans la classe
-4. (default/package) : accessible dans le même package (si aucun modificateur n'est spécifié)
-
-### Autres modificateurs pour les attributs
-
-1. `static` : attribut de classe (partagé par tous les objets)
-2. `final` : valeur qui ne peut pas être modifiée après initialisation
-3. `transient` : attribut qui ne sera pas sérialisé
-4. `volatile` : utilisé dans les environnements multi-thread
-
-### Bonnes pratiques pour les attributs
-
-- Déclarer les attributs en `private` (encapsulation)
-- Utiliser des getters et setters pour accéder aux attributs
-- Initialiser les attributs avec des valeurs par défaut
-- Utiliser des noms significatifs en camelCase
-
-```java
-public class Etudiant {
-    private String numeroEtudiant; // Bon : nom significatif
-    private int age; // Bon : simple et clair
-    private double m_moyenne; // À éviter : style de nommage incohérent
-    public String adresse; // À éviter : attribut public
-}
-```
+Autres points importants concernant les attributs :
+- Les attributs peuvent avoir des modificateurs supplémentaires comme `final` (valeur non modifiable après initialisation), `static` (appartient à la classe plutôt qu'aux instances), ou `transient` (exclu de la sérialisation).
+- Les attributs peuvent être initialisés lors de leur déclaration ou dans un constructeur.
+- Par défaut, les attributs primitifs sont initialisés à leurs valeurs par défaut (0 pour `int`, `false` pour `boolean`, etc.) et les objets à `null`.
 
 ## Méthodes
 
-Les méthodes définissent le comportement des objets de la classe. Elles représentent les actions qu'un objet peut effectuer.
+Les méthodes définissent le comportement des objets d'une classe. Notre classe `User` comporte plusieurs types de méthodes :
 
-### Syntaxe de base
+### Getters (Accesseurs)
+
+Les getters permettent d'accéder aux valeurs des attributs privés :
 
 ```java
-[modificateurs] typeRetour nomMethode([paramètres]) [throws exceptions] {
-    // Corps de la méthode
-    [return valeur;]
+// Getter attributs de la classe User
+public String getFirstName() {
+    return this.firstName;
+}
+
+public String getLastName() {
+    return this.lastName;
+}
+
+public int getAge() {
+    return this.age;
+}
+
+public boolean isStudent() {
+    return this.student;
 }
 ```
 
-### Types de méthodes
+Notez que pour les attributs booléens, la convention est d'utiliser `is` plutôt que `get` comme préfixe.
 
-1. **Méthodes d'instance** : opèrent sur un objet spécifique
-2. **Méthodes statiques** : appartiennent à la classe et non à l'instance
-3. **Méthodes d'accesseur** (getters) : retournent la valeur d'un attribut
-4. **Méthodes de mutateur** (setters) : modifient la valeur d'un attribut
+### Setters (Mutateurs)
+
+Les setters permettent de modifier les valeurs des attributs privés :
 
 ```java
-public class CompteBancaire {
-    private String numero;
-    private double solde;
-    private static double tauxInteret = 0.02; // 2%
-    
-    // Méthode d'instance
-    public void deposer(double montant) {
-        if (montant > 0) {
-            this.solde += montant;
-            System.out.println("Dépôt de " + montant + "€ effectué");
-        }
-    }
-    
-    // Méthode avec valeur de retour
-    public boolean retirer(double montant) {
-        if (montant > 0 && solde >= montant) {
-            this.solde -= montant;
-            System.out.println("Retrait de " + montant + "€ effectué");
-            return true;
-        }
-        System.out.println("Retrait impossible");
-        return false;
-    }
-    
-    // Getter (accesseur)
-    public double getSolde() {
-        return solde;
-    }
-    
-    // Setter (mutateur)
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-    
-    // Méthode statique
-    public static double getTauxInteret() {
-        return tauxInteret;
-    }
-    
-    // Méthode qui calcule les intérêts annuels
-    public double calculerInterets() {
-        return solde * tauxInteret;
-    }
+// Setter attributs de la classe User
+public void setFirstName(String firstName) {
+    this.firstName = firstName;
+}
+
+public void setLastName(String lastName) {
+    this.lastName = lastName;
+}
+
+public void setAge(int age) {
+    this.age = age;
+}
+
+public void setStudent(boolean student) {
+    this.student = student;
 }
 ```
 
-### Signature de méthode
+Chaque setter :
+- A un type de retour `void` (ne retourne rien)
+- Prend un paramètre du même type que l'attribut correspondant
+- Utilise `this` pour distinguer l'attribut de la classe du paramètre de la méthode
 
-La signature d'une méthode comprend :
-- Le nom de la méthode
-- Le nombre, le type et l'ordre des paramètres
+### Méthode toString()
 
-Le type de retour ne fait pas partie de la signature.
-
-### Surcharge de méthode
-
-La surcharge permet de définir plusieurs méthodes avec le même nom mais des paramètres différents.
+La méthode `toString()` est une méthode spéciale qui retourne une représentation sous forme de chaîne de caractères de l'objet :
 
 ```java
-public class Calculatrice {
-    // Surcharge de la méthode additionner
-    public int additionner(int a, int b) {
-        return a + b;
-    }
-    
-    public double additionner(double a, double b) {
-        return a + b;
-    }
-    
-    public int additionner(int a, int b, int c) {
-        return a + b + c;
-    }
+// Méthode toString pour retourner les informations d'un User
+public String toString() {
+    return "Prénom: " + this.firstName + "\n" +
+            " Nom de famille: " + this.lastName + "\n" +
+            " Age: " + this.age + "\n" +
+            " Etudiant: " + (this.student ? "Oui" : "Non");
 }
 ```
+
+Cette méthode :
+- Redéfinit la méthode `toString()` héritée de la classe `Object`
+- Retourne une chaîne formatée contenant les valeurs des attributs
+- Utilise une expression ternaire (`condition ? valeurSiVrai : valeurSiFaux`) pour convertir la valeur booléenne en texte
+
+Les méthodes peuvent également :
+- Être `static` (appartenant à la classe plutôt qu'aux instances)
+- Être `final` (ne peuvent pas être redéfinies dans les sous-classes)
+- Être `abstract` (déclaration sans implémentation, à définir dans les sous-classes)
+- Lever des exceptions avec `throws`
+- Être surchargées (plusieurs méthodes avec le même nom mais des paramètres différents)
 
 ## Constructeurs
 
-Les constructeurs sont des méthodes spéciales utilisées pour initialiser les objets lors de leur création avec l'opérateur `new`.
-
-### Caractéristiques des constructeurs
-
-- Même nom que la classe
-- Pas de type de retour (même pas `void`)
-- Peuvent être surchargés (plusieurs constructeurs avec différents paramètres)
-- Si aucun constructeur n'est défini, Java fournit un constructeur par défaut sans paramètres
+Les constructeurs sont des méthodes spéciales utilisées pour initialiser les objets lors de leur création. Notre classe `User` possède un constructeur qui initialise tous les attributs :
 
 ```java
-public class Personne {
-    private String nom;
-    private String prenom;
-    private int age;
-    
-    // Constructeur par défaut
-    public Personne() {
-        // Initialisation par défaut
-        this.nom = "Inconnu";
-        this.prenom = "Inconnu";
-        this.age = 0;
-        System.out.println("Création d'une personne avec valeurs par défaut");
-    }
-    
-    // Constructeur avec paramètres
-    public Personne(String nom, String prenom, int age) {
-        this.nom = nom;
-        this.prenom = prenom;
-        
-        // Validation des données
-        if (age >= 0) {
-            this.age = age;
-        } else {
-            this.age = 0;
-        }
-        
-        System.out.println("Création de " + prenom + " " + nom);
-    }
-    
-    // Constructeur avec moins de paramètres, réutilisant un autre constructeur
-    public Personne(String nom, String prenom) {
-        this(nom, prenom, 0); // Appelle le constructeur avec 3 paramètres
-    }
+// Initialisation du constructeur de la classe User
+public User(final String firstName, final String lastName, final int age, final boolean student) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.student = student;
 }
 ```
 
-### Utilisation des constructeurs
+Caractéristiques de ce constructeur :
+- Il porte le même nom que la classe (`User`)
+- Il n'a pas de type de retour (pas même `void`)
+- Il utilise le modificateur `public` pour être accessible depuis d'autres classes
+- Il prend quatre paramètres correspondant aux quatre attributs
+- Le mot-clé `final` sur les paramètres indique qu'ils ne peuvent pas être modifiés à l'intérieur du constructeur
+- Il utilise `this` pour faire référence aux attributs de l'instance
+
+Utilisation du constructeur pour créer un objet :
 
 ```java
-// Création d'objets avec différents constructeurs
-Personne p1 = new Personne(); // Utilise le constructeur par défaut
-Personne p2 = new Personne("Dupont", "Jean", 30); // Constructeur avec 3 paramètres
-Personne p3 = new Personne("Martin", "Sophie"); // Constructeur avec 2 paramètres
+User user = new User("Marie", "Durand", 30, true);
 ```
 
-### Bloc d'initialisation
+Si aucun constructeur n'est défini, Java fournit un constructeur par défaut sans paramètres. Cependant, dès qu'un constructeur avec paramètres est défini, le constructeur par défaut n'est plus fourni automatiquement. Si vous voulez toujours pouvoir créer des objets sans paramètres, vous devez définir explicitement un constructeur sans paramètres.
 
-En plus des constructeurs, Java permet de définir des blocs d'initialisation qui sont exécutés lors de la création d'un objet.
+Une classe peut avoir plusieurs constructeurs (surcharge de constructeurs) pour offrir différentes façons d'initialiser les objets :
 
 ```java
-public class Exemple {
-    private int x;
-    
-    // Bloc d'initialisation (exécuté avant le constructeur)
-    {
-        x = 10;
-        System.out.println("Bloc d'initialisation exécuté");
-    }
-    
-    // Bloc d'initialisation statique (exécuté une seule fois lors du chargement de la classe)
-    static {
-        System.out.println("Bloc statique exécuté");
-    }
-    
-    public Exemple() {
-        System.out.println("Constructeur exécuté");
-    }
+// Exemple de constructeurs supplémentaires que nous pourrions ajouter
+public User() {
+    this("", "", 0, false);
+}
+
+public User(String firstName, String lastName) {
+    this(firstName, lastName, 0, false);
 }
 ```
 
 ## L'objet `this`
 
-Le mot-clé `this` fait référence à l'instance courante de la classe. Il est particulièrement utile pour distinguer les variables d'instance des paramètres de méthode qui portent le même nom.
+Le mot-clé `this` fait référence à l'instance courante de la classe. Dans notre classe `User`, `this` est utilisé à plusieurs endroits :
 
-### Utilisations de `this`
+### Dans le constructeur
 
-1. **Référencer des variables d'instance**
-   ```java
-   public class Point {
-       private int x, y;
-       
-       public void setCoordonnees(int x, int y) {
-           this.x = x; // this.x fait référence à la variable d'instance
-           this.y = y; // y seul ferait référence au paramètre
-       }
-   }
-   ```
+```java
+public User(final String firstName, final String lastName, final int age, final boolean student) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.student = student;
+}
+```
 
-2. **Appeler un autre constructeur**
-   ```java
-   public class Rectangle {
-       private int longueur, largeur;
-       
-       public Rectangle() {
-           this(1, 1); // Appelle le constructeur avec deux paramètres
-       }
-       
-       public Rectangle(int longueur, int largeur) {
-           this.longueur = longueur;
-           this.largeur = largeur;
-       }
-   }
-   ```
+Ici, `this.firstName` fait référence à l'attribut `firstName` de l'instance, tandis que `firstName` (sans `this`) fait référence au paramètre du constructeur. Cette distinction est nécessaire car les noms des paramètres sont identiques aux noms des attributs.
 
-3. **Passer l'instance courante en paramètre**
-   ```java
-   public class Utilisateur {
-       private String nom;
-       
-       public void enregistrer(RegistreUtilisateurs registre) {
-           registre.ajouter(this); // Passe l'instance courante
-       }
-   }
-   ```
+### Dans les getters
 
-4. **Retourner l'instance courante pour permettre le chaînage de méthodes**
-   ```java
-   public class Builder {
-       private String valeur1;
-       private int valeur2;
-       
-       public Builder setValeur1(String valeur) {
-           this.valeur1 = valeur;
-           return this; // Retourne l'instance pour permettre le chaînage
-       }
-       
-       public Builder setValeur2(int valeur) {
-           this.valeur2 = valeur;
-           return this;
-       }
-       
-       // Utilisation :
-       // Builder b = new Builder().setValeur1("test").setValeur2(42);
-   }
-   ```
+```java
+public String getFirstName() {
+    return this.firstName;
+}
+```
+
+Dans ce cas, l'utilisation de `this` est facultative car il n'y a pas d'ambiguïté avec un paramètre local. La méthode aurait pu être écrite comme suit :
+
+```java
+public String getFirstName() {
+    return firstName;
+}
+```
+
+### Dans les setters
+
+```java
+public void setFirstName(String firstName) {
+    this.firstName = firstName;
+}
+```
+
+Ici, `this` est nécessaire pour distinguer l'attribut `firstName` du paramètre `firstName`. Sans `this`, le paramètre serait simplement assigné à lui-même, ce qui n'aurait aucun effet sur l'attribut de la classe.
+
+### Dans la méthode toString()
+
+```java
+public String toString() {
+    return "Prénom: " + this.firstName + "\n" +
+            " Nom de famille: " + this.lastName + "\n" +
+            " Age: " + this.age + "\n" +
+            " Etudiant: " + (this.student ? "Oui" : "Non");
+}
+```
+
+Comme dans les getters, l'utilisation de `this` est facultative ici.
+
+Autres utilisations de `this` (non présentes dans l'exemple) :
+- Pour appeler un autre constructeur : `this(param1, param2);`
+- Pour passer l'instance courante comme argument à une méthode : `autreObjet.methode(this);`
+- Pour retourner l'instance courante (utile pour les méthodes chaînées) : `return this;`
 
 ## Encapsulation
 
-L'encapsulation est l'un des principes fondamentaux de la programmation orientée objet. Elle consiste à regrouper les données (attributs) et les méthodes qui les manipulent dans une même unité (la classe) tout en restreignant l'accès direct aux attributs.
+L'encapsulation est l'un des principes fondamentaux de la programmation orientée objet. Elle consiste à masquer l'état interne d'un objet et à n'autoriser l'accès que via des méthodes publiques contrôlées.
 
-### Avantages de l'encapsulation
+Notre classe `User` illustre parfaitement ce principe :
 
-1. **Protection des données** : empêche l'accès direct et la modification inappropriée
-2. **Abstraction** : masque les détails d'implémentation
-3. **Maintenance facilitée** : permet de modifier l'implémentation sans affecter les utilisateurs de la classe
-4. **Validation des données** : permet de contrôler les valeurs attribuées aux attributs
-
-### Mise en œuvre de l'encapsulation
-
-1. **Déclarer les attributs comme private**
-2. **Fournir des méthodes publiques (getters et setters) pour accéder aux attributs**
-3. **Implémenter une validation dans les setters si nécessaire**
+1. **Données privées** : Tous les attributs sont déclarés comme `private`, ce qui signifie qu'ils ne sont pas directement accessibles depuis l'extérieur de la classe.
 
 ```java
-public class CompteBancaire {
-    // Attributs privés
-    private String numero;
-    private String titulaire;
-    private double solde;
-    
-    // Constructeur
-    public CompteBancaire(String numero, String titulaire) {
-        this.numero = numero;
-        this.titulaire = titulaire;
-        this.solde = 0.0;
-    }
-    
-    // Getters (accesseurs)
-    public String getNumero() {
-        return numero;
-    }
-    
-    public String getTitulaire() {
-        return titulaire;
-    }
-    
-    public double getSolde() {
-        return solde;
-    }
-    
-    // Setter avec validation
-    public void setTitulaire(String titulaire) {
-        if (titulaire != null && !titulaire.trim().isEmpty()) {
-            this.titulaire = titulaire;
-        }
-    }
-    
-    // Pas de setter pour solde car il doit être modifié via des méthodes spécifiques
-    
-    // Méthodes métier (comportement)
-    public void deposer(double montant) {
-        if (montant > 0) {
-            this.solde += montant;
-            System.out.println("Dépôt de " + montant + "€ effectué");
-        } else {
-            System.out.println("Le montant du dépôt doit être positif");
-        }
-    }
-    
-    public boolean retirer(double montant) {
-        if (montant > 0 && solde >= montant) {
-            this.solde -= montant;
-            System.out.println("Retrait de " + montant + "€ effectué");
-            return true;
-        }
-        System.out.println("Retrait impossible");
-        return false;
-    }
-    
-    // Méthode pour afficher les informations du compte
-    public void afficherInfos() {
-        System.out.println("Compte n° " + numero);
-        System.out.println("Titulaire : " + titulaire);
-        System.out.println("Solde : " + solde + "€");
+private String firstName;
+private String lastName;
+private int age;
+private boolean student;
+```
+
+2. **Interface publique** : Des méthodes publiques (getters et setters) sont fournies pour accéder et modifier ces attributs de manière contrôlée.
+
+```java
+// Getter
+public String getFirstName() {
+    return this.firstName;
+}
+
+// Setter
+public void setFirstName(String firstName) {
+    this.firstName = firstName;
+}
+```
+
+Avantages de l'encapsulation démontrés par notre classe `User` :
+
+### Protection des données
+
+Les attributs étant privés, ils ne peuvent pas être modifiés directement par d'autres classes. Toute modification doit passer par les setters, ce qui permet de contrôler comment les modifications sont effectuées.
+
+### Validation des données
+
+Bien que notre exemple n'implémente pas de validation, les setters pourraient être étendus pour valider les données avant de les assigner aux attributs :
+
+```java
+public void setAge(int age) {
+    if (age >= 0) {
+        this.age = age;
+    } else {
+        throw new IllegalArgumentException("L'âge ne peut pas être négatif");
     }
 }
 ```
 
-### Exemple d'utilisation
+### Flexibilité d'implémentation
+
+L'implémentation interne peut être modifiée sans affecter le code qui utilise la classe, tant que l'interface publique reste la même.
+
+Par exemple, si nous décidions de stocker l'âge sous forme de date de naissance plutôt que de nombre d'années, nous pourrions modifier l'attribut en interne tout en conservant la même interface pour les utilisateurs de la classe :
 
 ```java
-public class TestCompteBancaire {
+// Modification interne
+private LocalDate dateOfBirth; // au lieu de int age
+
+// L'interface publique reste la même
+public int getAge() {
+    return Period.between(dateOfBirth, LocalDate.now()).getYears();
+}
+
+public void setAge(int age) {
+    this.dateOfBirth = LocalDate.now().minusYears(age);
+}
+```
+
+### Exemple d'utilisation de la classe User
+
+```java
+public class Main {
     public static void main(String[] args) {
-        // Création d'un compte
-        CompteBancaire compte = new CompteBancaire("FR7612345", "Marie Dupont");
-        
-        // Utilisation des méthodes pour manipuler les données
-        compte.deposer(1000);
-        compte.retirer(200);
-        
-        // Accès aux attributs via les getters
-        System.out.println("Titulaire : " + compte.getTitulaire());
-        System.out.println("Solde actuel : " + compte.getSolde() + "€");
-        
-        // Modification du titulaire via le setter
-        compte.setTitulaire("Marie Martin");
+        // Création d'un utilisateur
+        User user = new User("Jean", "Dupont", 25, false);
         
         // Affichage des informations
-        compte.afficherInfos();
+        System.out.println(user.toString());
         
-        // Impossible d'accéder directement aux attributs privés
-        // compte.solde = -1000; // Erreur de compilation
+        // Modification via les setters
+        user.setAge(26);
+        user.setStudent(true);
+        
+        // Accès via les getters
+        System.out.println("Nouvel âge : " + user.getAge());
+        System.out.println("Étudiant : " + (user.isStudent() ? "Oui" : "Non"));
     }
 }
 ```
 
-L'encapsulation permet ainsi de créer des classes robustes, faciles à maintenir et qui protègent leurs données contre les modifications involontaires ou incorrectes.
+En résumé, la classe `User` illustre parfaitement les concepts fondamentaux des classes Java : déclaration de classe, attributs privés, méthodes publiques incluant getters et setters, constructeur avec paramètres, utilisation de `this`, et encapsulation. Ces principes forment la base de la programmation orientée objet en Java et permettent de créer des applications robustes et maintenables.
