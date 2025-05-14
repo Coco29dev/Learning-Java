@@ -54,7 +54,7 @@ public class Oiseau extends Animal {
     @Override
     public String toString() {
         return super.toString() +
-                " Name: " + this.name + "\n" +
+                " Nom: " + this.name + "\n" +
                 " Taille: " + this.taille + " cm\n" +
                 " Poids: " + this.poids + " kg";
     }
